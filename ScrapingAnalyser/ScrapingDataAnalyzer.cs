@@ -23,7 +23,6 @@ namespace ScrapingAnalyser
                 if (match.Contains(_contentKeyWord))
                     indexes.Add(i + 1);
             }
-            indexes.Add(0);
             return indexes;
         }
     }
