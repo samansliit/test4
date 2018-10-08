@@ -13,6 +13,7 @@ namespace ScrapingAnalyser.Writers
         public LoggerStrategy(IOutputWriter writer)
         {
             this.writer = writer;
+            //
         }
 
         public void Log(string message)
