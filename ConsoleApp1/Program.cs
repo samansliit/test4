@@ -12,19 +12,19 @@ using ScrapingAnalyser.Interfaces;
 using Unity.Injection;
 using ScrapingAnalyser;
 using ScrapingAnalyser.Writers;
+using System.Configuration;
 
 namespace ConsoleApp1
 {
     class Program
     {
 
-      
+        private string siteUrl = string.Empty;
         static void Main(string[] args)
         {
 
             UnityContainer iocContainer = new UnityContainer();
             Configure(iocContainer);
-
             var reportJob = iocContainer.Resolve<IScrapingReportJob>();
             reportJob.Execute();
             Console.ReadLine();
@@ -32,7 +32,7 @@ namespace ConsoleApp1
 
         private static void Configure(UnityContainer iocContainer)
         {
-            iocContainer.RegisterType<IWebReader, WebReader>(new InjectionConstructor("conveyancing software", 100));
+            iocContainer.RegisterType<IWebReader, WebReader>(new InjectionConstructor("conveyancing software", 100, ConfigurationManager.AppSettings["GoogleURL"]));
             iocContainer.RegisterType<IScrapingDataAnalyzer, ScrapingDataAnalyzer>(new InjectionConstructor("https://www.smokeball.com.au"));
             iocContainer.RegisterType<IOutputWriter, ConsoleWriter>();
             iocContainer.RegisterType<IScrapingReportJob, ScrapingReportJob>();
